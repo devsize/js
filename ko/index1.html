@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>KnockoutJS</title>
+</head>
+<body>
+<input type="text" data-bind="textInput: firstName">
+<input type="text" data-bind="textInput: lastName">
+<!--<p data-bind="text: firstName() + ' ' + lastName()"></p>-->
+<p data-bind="text: fullName"></p>
+<script src="knockout-3.5.1.js"></script>
+<script>
+  const viewModel = {
+    firstName: ko.observable(''),
+    lastName: ko.observable(''),
+    // fullName: function () {
+    //   return this.firstName() + ' ' + this.lastName();
+    // } или то же самое с computed - это функция, которая следит за изменениями observable или computed внутри неё
+  };
+
+  viewModel.fullName = ko.computed(function () {
+    return this.firstName() + ' ' + this.lastName();
+  }, viewModel);
+
+  ko.applyBindings(viewModel);
+
+</script>
+</body>
+</html>

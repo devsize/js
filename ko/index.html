@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>KnockoutJS</title>
+</head>
+<body>
+<!--  <div data-bind="text: greeting"></div>-->
+<input id="input_text" type="text" data-bind="textInput: inputText, visible: isVisible">
+<p data-bind="text: inputText"></p>
+<!--<button data-bind="click: function(viewModel) {viewModel.isVisible(true)}">Click me!</button> &lt;!&ndash;В аргументах callback функции лежит текущий контекст(в данном случае - viewModel) &ndash;&gt;-->
+<!-- или можно написать так(поскольку console.log(this) даст viewModel -->
+<!--<button data-bind="click: function() {this.isVisible(true)}">Click me!</button>-->
+<button data-bind="click: clickHandler">Click me!</button>
+<!--<button data-bind="event: {myCustomEvent: function(){...}}"></button> //Если хотим привязаться к своему event-->
+<script src="knockout-3.5.1.js"></script>
+<script>
+  let viewModel = {
+    // greeting: ko.observable('Hello world')
+    inputText: ko.observable(''),
+    isVisible: ko.observable(false),
+    clickHandler: function () {
+      console.log(this);
+    }
+  };
+  //что бы привязать viewModel к определённому элементу(а не ко всему документу) в ko.applyBindings нужно передать 2-й аргумент, например так
+  // ko.applyBindings(viewModel, document.getElementById(elemId))
+  // ko.applyBindings(viewModel);
+  // viewModel.greeting('1234567')
+  ko.applyBindings(viewModel);
+
+  // ko.utils.unwrapObservable(viewModel.inputText); //если нужно проверить в коде является ли переменна observable. Если да, то достаёт из неё значение, если это обычная переменная, то просто возвращает её значение
+
+  // viewModel.inputText.subscribe(function (newValue) {
+  //   console.log(newValue);
+  // })
+
+  // setTimeout(function () {
+  //   viewModel.isVisible(true);
+  // }, 2000)
+</script>
+</body>
+</html>
